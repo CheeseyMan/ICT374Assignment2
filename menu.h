@@ -7,6 +7,6 @@ void displayMenu();
 
 void displayPrompt();
 
-void changePrompt(char*inPrompt);
+void changePrompt(char[16]inPrompt);
 
 #endif
