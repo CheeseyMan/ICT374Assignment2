@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
+#include <limits.h>
 
 #include "token.h"
 #include "command.h"
@@ -24,6 +25,9 @@ int main()
 
 
 	char prompt[32]="%";//Reconfigurable prompt
+	char find[] = "/";//find last occurance of '/'
+	char currentDir[PATH_MAX];
+	char newpath[PATH_MAX];
 	int numCommands=0;//Number of numbers in commandArray
 	int n=1;
 	int jobType;
@@ -116,6 +120,17 @@ int main()
 					}
 				}
 			}
+			else if (strcmp(commandArray[i].argv[0], "cd..")==0)
+			{
+				if(getcwd(currentDir, sizeof(currentDir))!=NULL)
+				{
+					for(int i = 0; i < 1; i++)
+					{
+						char *position_ptr = strrchr(currentDir, find[i]);
+						int r_position = (position_ptr == NULL ? - : postion_ptr - currentDir);	
+						strncpy(newpath, currentDir, r_position);
+						chdir(newpath);
+			}
 			else if(strcmp(commandArray[i].argv[0],"cwd")==0)
 			{
 				chdir(commandArray[i].argv[1]);
@@ -130,7 +145,8 @@ int main()
 				}
 				strcpy(prompt, commandArray[i].argv[1]);
 				continue;
-			}	
+			}
+			
 			int more=1;
 			while(more)
 			{
