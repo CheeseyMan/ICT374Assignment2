@@ -28,7 +28,7 @@ void displayMenu()
 	clearMenu();
 }
 //Displays prompt
-void displayPrompt(char* inPrompt)
+void displayPrompt(char[16] inPrompt)
 {	
 	printf("%s", inPrompt);
 }
